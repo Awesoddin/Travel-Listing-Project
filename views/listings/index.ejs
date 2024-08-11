@@ -1,0 +1,23 @@
+<% layout("./layouts/boilerplate.ejs") %>
+
+    <!-- <h1>Working </h1> -->
+    <!-- <form method="get" action="/listings/new">
+        <button type="submit">Create New</button>
+    </form> -->
+    <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2">
+      
+    <%for(let listings of allListings){%>
+        <a href="/listings/<%=listings._id%>" class="listing-link">
+    <div class="card col listing-card" >
+        <img src="<%=listings.image%>" class="card-img-top" style="height: 18rem;" alt="Hotel Image">
+        <div class="card-img-overlay"></div>
+        <div class="card-body">
+          <b><%=listings.title%></b>
+          <p class="card-text"><%=listings.price%>/Night</p>
+          
+        </div>
+      </div>
+    </a>
+      <%}%>
+    </div>
+    

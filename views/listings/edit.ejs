@@ -1,0 +1,37 @@
+<% layout("./layouts/boilerplate.ejs") %>
+    <div class="row">
+        <div class="col-sm-8 offset-sm-2">
+            <form method="post" action="/listings/<%=listing._id%>?_method=PUT" novalidate class="needs-validation">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    <input name="listing[title]" value=<%=listing.title%> required class="form-control">
+                    <div class="invalid-feedback">Enter a valid title</div>
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea name="listing[description]" class="form-control" required><%=listing.description%></textarea>
+                    <div class="invalid-feedback">Please enter short description</div>
+                </div>
+                <div class="mb-3">
+                    <label for="image" class="form-label">Image</label>
+                    <input name="listing[image]" value=<%=listing.image%> class="form-control">
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-4">
+                        <label for="price" class="form-label">Price</label>
+                        <input name="listing[price]" value=<%=listing.price%> class="form-control" required>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="country" class="form-label">Country</label>
+                        <input name="listing[country]" value=<%=listing.country%> class="form-control" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="location" class="form-label">Location</label>
+                    <input name="listing[location]" value=<%=listing.location%> class="form-control" required>
+                </div><br>
+                <button class="btn add-btn" type="listing[submit]">Edit</button>
+            </form><br>
+        </div>
+    </div>
+    <script src="/js/script.js"></script>
