@@ -4,7 +4,7 @@ const router = express.Router({ mergeParams : true });
 const Listing = require("../models/listing");
 const wrapAsync = require("../utils/wrapAsync.js");
 const expressError = require("../utils/expressError.js");
-const {listingSchema, reviewSchema} = require("../joiSchema.js");
+const listingSchema = require("../joiSchema.js");
 
 
 
@@ -42,14 +42,21 @@ router.get("/:id", wrapAsync(async (req, res) => {
 // Performing CRUD operation
 
 // creat rout
-router.post("/", validateListing ,wrapAsync(async (req, res, next) => {
-    let result = listingSchema.validate(req.body);
-    if (result.error) {
-        throw new expressError(400, result.error);
-    }
+// router.post("/", validateListing ,wrapAsync(async (req, res, next) => {
+//     let result = listingSchema.validate(req.body);
+//     if (result.error) {
+//         throw new expressError(400, result.error);
+//     }
+//     const newListing = new Listing(req.body.listing);
+//     await newListing.save()
+//     res.redirect("http://localhost:3000/listings/");
+// }));
+// creat rout
+
+router.post("/" ,validateListing ,wrapAsync(async (req, res, next) => {
     const newListing = new Listing(req.body.listing);
     await newListing.save()
-    res.redirect("http://localhost:3000/listings/");
+    res.redirect("/listings");
 }));
 
 // updating in 2 steps

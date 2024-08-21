@@ -28,7 +28,8 @@
     <div class="col-8 offset-2 ">
       <h4>Leave a comment</h4>
       <!-- Form For Reviews -->
-      <form action="/lisitngs/<%= listing.id %>/reviews" method="POST" novalidate class="needs-validation">
+       <!-- Creating Reviews -->
+        <form action="/listings/<%= listing._id %>/reviews" method="POST" novalidate class="needs-validation">
         <div>
           <label for="rating" class="form-label">Rating</label>
           <input type="range" min="1" max="5" id="rating" name="review[rating]" class="form-range">
