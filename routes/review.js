@@ -7,6 +7,7 @@ const wrapAsync = require("../utils/wrapAsync.js");
 const expressError = require("../utils/expressError.js");
 const reviewSchema = require("../joiSchema.js");
 
+
 const validateReview = (req ,res ,next) =>{
     let {error} =reviewSchema.validate(req.body);
     if(error){
@@ -18,7 +19,7 @@ const validateReview = (req ,res ,next) =>{
     }
 };
 
-router.post("/" ,validateReview, wrapAsync(async (req ,res)=>{
+router.post("/"  ,validateReview ,wrapAsync(async (req ,res)=>{
     
     let listing = await Listing.findById(req.params.id);
     let newReview = new Review (req.body.review);

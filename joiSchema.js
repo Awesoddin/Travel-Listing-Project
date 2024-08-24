@@ -13,33 +13,18 @@ const listingSchema = Joi.object({
 
 const reviewSchema = Joi.object({
   review: Joi.object({
-    rating : Joi.number().required().min(1).max(5),
-    comment : Joi.string().required(), 
+    rating: Joi.number().required(),
+    comment: Joi.string().required(), 
   }).required(),
 });
 
-module.exports = listingSchema ,reviewSchema;
-
-// const joi = require("joi");
-
-// const listingSchema = joi.object({
-
-//     listing : joi.object({
-
-//         title :joi.string().required(),
-//         description :joi.string().required(),
-//         location :joi.string().required(),
-//         country :joi.string().required(),
-//         price :joi.number().required().min(0),
-//         image :joi.string().allow("" ,null)
-//     }).required()
-// });
-
+module.exports = listingSchema;
+module.exports = reviewSchema;
 
 // const reviewSchema = joi.object({
-//     review :joi.object ({
-//         rating:joi.number().required(),
-//         comment:joi.string().required(),
+//     review: joi.object ({
+//         rating: joi.number().required(),
+//         comment: joi.string().required(),
 //         image:joi.string()
 //     }).required()
 // });
