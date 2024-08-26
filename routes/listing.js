@@ -4,7 +4,7 @@ const router = express.Router({ mergeParams : true });
 const Listing = require("../models/listing");
 const wrapAsync = require("../utils/wrapAsync.js");
 const expressError = require("../utils/expressError.js");
-const listingSchema = require("../joiSchema.js");
+const {listingSchema ,reviewSchema} = require("../joiSchema.js");
 
 
 
@@ -15,7 +15,7 @@ const validateListing = (req, res, next) => {
         throw new expressError(400, errMsg);
     }
     else {
-        next()
+        next();
     }
 };
 
@@ -36,26 +36,19 @@ router.get("/new", (req, res) => {
 router.get("/:id", wrapAsync(async (req, res) => {
     let { id } = req.params;
     const listing = await Listing.findById(id).populate("reviews");
+    if(!Listing){
+        req.error("error" ,"Listing is not available which you find !");
+        res.redirect("/listings");
+    }
     res.render("./listings/show.ejs", { listing });
 }));
 
 // Performing CRUD operation
-
 // creat rout
-// router.post("/", validateListing ,wrapAsync(async (req, res, next) => {
-//     let result = listingSchema.validate(req.body);
-//     if (result.error) {
-//         throw new expressError(400, result.error);
-//     }
-//     const newListing = new Listing(req.body.listing);
-//     await newListing.save()
-//     res.redirect("http://localhost:3000/listings/");
-// }));
-// creat rout
-
 router.post("/" ,validateListing ,wrapAsync(async (req, res, next) => {
     const newListing = new Listing(req.body.listing);
     await newListing.save()
+    req.flash("success" ,"New listing added successfully!!");
     res.redirect("/listings");
 }));
 
@@ -64,6 +57,10 @@ router.post("/" ,validateListing ,wrapAsync(async (req, res, next) => {
 router.get("/:id/edit", wrapAsync(async (req, res) => {
     let { id } = req.params;
     const listing = await Listing.findById((id))
+    if(!Listing){
+        req.error("error" ,"Listing is not available which you find !");
+        res.redirect("/listings");
+    }
     res.render("./listings/edit.ejs", { listing });
 }));
 // update Rout
@@ -73,6 +70,7 @@ router.put("/:id",  wrapAsync(async (req, res) => {
     }
     let { id } = req.params;
     await Listing.findByIdAndUpdate(id, { ...req.body.listing });
+    req.flash("success" ,"Review Updated !")
     res.redirect(`/listings/${id}`);
 }));
 
@@ -80,6 +78,7 @@ router.put("/:id",  wrapAsync(async (req, res) => {
 router.delete("/:id", wrapAsync(async (req, res) => {
     let { id } = req.params;
     await Listing.findByIdAndDelete(id);
+    req.flash("success" ,"Listing is deleted!!");
     res.redirect("/listings");
 }));
 
